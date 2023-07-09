@@ -50,4 +50,31 @@ function App() {
   );
 }
 
+function uploadFile() {
+  const file = document.getElementById("fileUpload").files[0];
+  const storageRef = firebase.storage().ref(); 
+
+  const filename = "images/" + file.name; 
+
+  const uploadTask = storageRef.child(filename).put(file);
+
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload progress: " + progress + "%");
+    },
+    (error) => {
+      console.error("Upload failed:", error);
+    },
+    () => {
+      console.log("Upload completed");
+
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        console.log("File available at:", downloadURL);
+      });
+    }
+  );
+}
+
 export default App;
