@@ -1,5 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import firebase from 'firebase/app';
+import 'firebase/storage';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBfhW_-hJeR2t8BIzdiRiKq7DL99VQzlMM",
+  authDomain: "resumeparser-f4206.firebaseapp.com",
+  projectId: "resumeparser-f4206",
+  storageBucket: "resumeparser-f4206.appspot.com",
+  messagingSenderId: "245221369607",
+  appId: "1:245221369607:web:e06a167d91512b8e9807a2"
+};
+
+firebase.initializeApp(firebaseConfig);
 
 import React from 'react';
 //import ReactDOM from 'react-dom';
