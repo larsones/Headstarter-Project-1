@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import firebase from 'firebase/app';
-import 'firebase/storage';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage';
 import React from 'react';
 //import ReactDOM from 'react-dom';
 
