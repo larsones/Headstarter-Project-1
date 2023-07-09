@@ -50,4 +50,38 @@ function App() {
   );
 }
 
+function uploadFile() {
+  const file = document.getElementById("fileUpload").files[0];
+  const storageRef = firebase.storage().ref(); // Reference to the root of Firebase Storage
+
+  // Set the desired location and filename in Firebase Storage
+  const filename = "images/" + file.name; // Example: storing files under 'images' directory
+
+  // Upload the file to Firebase Storage
+  const uploadTask = storageRef.child(filename).put(file);
+
+  // Listen for upload completion
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      // Track upload progress, if needed
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload progress: " + progress + "%");
+    },
+    (error) => {
+      // Handle upload error
+      console.error("Upload failed:", error);
+    },
+    () => {
+      // Upload successful
+      console.log("Upload completed");
+
+      // Access the download URL of the uploaded file
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        console.log("File available at:", downloadURL);
+      });
+    }
+  );
+}
+
 export default App;
