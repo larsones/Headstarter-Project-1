@@ -98,4 +98,4 @@ function uploadFile() {
   );
 }
 
-export App;
+export default App;
