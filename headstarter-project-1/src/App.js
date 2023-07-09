@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import React from 'react';
+//import ReactDOM from 'react-dom';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBfhW_-hJeR2t8BIzdiRiKq7DL99VQzlMM",
@@ -14,8 +16,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-import React from 'react';
-//import ReactDOM from 'react-dom';
+
 
 function App() {
   const styles = {
@@ -97,4 +98,4 @@ function uploadFile() {
   );
 }
 
-export default App;
+export App;
