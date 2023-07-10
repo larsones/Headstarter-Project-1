@@ -70,7 +70,7 @@ function App() {
         const promises = res.items.map((item) =>
           item.getMetadata().then((metadata) => ({
             name: item.name,
-            url: metadata.downloadURLs[0],
+            url: metadata.downloadURLs && metadata.downloadURLs.length > 0 ? metadata.downloadURLs[0] : '',
             timeCreated: metadata.timeCreated,
           }))
         );
@@ -92,7 +92,7 @@ function App() {
     const storageRef = firebase.storage().ref();
     const filename = 'images/' + file.name;
 
-    const uploadTask = storageRef.child(filename).put(file);
+    const uploadTask = storageRef.put(file);
 
     uploadTask.on(
       'state_changed',
