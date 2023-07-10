@@ -5,7 +5,12 @@ import 'firebase/compat/storage';
 import React, { useState, useEffect } from 'react';
 
 const firebaseConfig = {
-  // Your Firebase configuration
+  apiKey: "AIzaSyBfhW_-hJeR2t8BIzdiRiKq7DL99VQzlMM",
+  authDomain: "resumeparser-f4206.firebaseapp.com",
+  projectId: "resumeparser-f4206",
+  storageBucket: "resumeparser-f4206.appspot.com",
+  messagingSenderId: "245221369607",
+  appId: "1:245221369607:web:e06a167d91512b8e9807a2"
 };
 
 firebase.initializeApp(firebaseConfig);
