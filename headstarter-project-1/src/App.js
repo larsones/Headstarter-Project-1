@@ -25,8 +25,19 @@ function App() {
       justifyContent: 'center',
       alignItems: 'center',
     },
+    container2: {
+      backgroundColor: 'white',
+      height: '75vh',
+      width: '75vh',
+      border_radius: '25pxm',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     header: {
-      color: 'white',
+      color: 'navy',
+      padding: '15px',
       fontSize: '2rem',
       marginBottom: '2rem',
     },
@@ -39,6 +50,7 @@ function App() {
     },
   };
 
+<<<<<<< Updated upstream
   function uploadFile() {
     const file = document.getElementById("fileUpload").files[0];
     const storageRef = firebase.storage().ref(); // Reference to the root of Firebase Storage
@@ -71,16 +83,47 @@ function App() {
         });
       }
     );
+=======
+
+
+  function addingFile(event) {
+    const file = event.target.files[0];
+    // Do something with the file, such as saving it in state or sending it to a server
+    alert(file.name + " added to the program.");
+  };
+  function savingFile(){
+    alert("Resume Saved") 
+>>>>>>> Stashed changes
   }
 
   return (
     <div style={styles.container}>
+<<<<<<< Updated upstream
       <h1 style={styles.header}>Resume Parser</h1>
       <input type='file' id='fileUpload' />
       <div>
         <button style={styles.button1} onClick={uploadFile}>Upload Resume</button> 
         <button style={styles.button1}>Filter Resume</button> 
       </div> 
+=======
+      <div style={styles.container2}>
+        <h1 style={styles.header}>Resume Parser</h1>
+        {/* Other components and content */}
+        {/* <3  */}
+        
+        <div>
+          <input  type='file' name='file' onChange={addingFile}/>
+          <button style={styles.button1} onClick={savingFile} >Upload Resume</button> 
+        </div>
+        <div>
+          <input type='text' name='text'/>
+          <button style={styles.button1}>Filter Resume</button>
+        </div>
+
+      {/*Possibly a List that is based off an array of added resumes so would be empty at start and grow with inputs to show file upload was a success */}
+
+      </div>
+>>>>>>> Stashed changes
     </div>
   );
 }
