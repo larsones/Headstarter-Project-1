@@ -2,8 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 const firebaseConfig = {
   apiKey: "AIzaSyBfhW_-hJeR2t8BIzdiRiKq7DL99VQzlMM",
   authDomain: "resumeparser-f4206.firebaseapp.com",
@@ -18,7 +17,7 @@ firebase.initializeApp(firebaseConfig);
 function App() {
   const styles = {
     container: {
-      backgroundColor: 'navy',
+      backgroundColor: 'Navy',
       height: '100vh',
       display: 'flex',
       flexDirection: 'column',
@@ -26,7 +25,7 @@ function App() {
       alignItems: 'center',
     },
     container2: {
-      backgroundColor: 'white',
+      backgroundColor: 'White',
       height: '75vh',
       width: '75vh',
       border_radius: '25pxm',
@@ -39,8 +38,13 @@ function App() {
       color: 'navy',
       padding: '15px',
       fontSize: '2rem',
-      marginBottom: '2rem',
+      marginTop: '-50rem',
     },
+    header2: {
+      color: 'navy',
+      padding: '15px',
+      fontSize: '2rem',
+      },
     button1: {
       backgroundColor: 'white',
       flexDirection: 'column',
@@ -49,11 +53,12 @@ function App() {
       color: 'navy',
     },
   };
-
+  
+  let test;
   function uploadFile() {
     const file = document.getElementById("fileUpload").files[0];
     const storageRef = firebase.storage().ref(); // Reference to the root of Firebase Storage
-
+    test = storageRef.items;
     // Set the desired location and filename in Firebase Storage
     const filename = "images/" + file.name; // Example: storing files under 'images' directory
 
@@ -66,15 +71,16 @@ function App() {
       (snapshot) => {
         // Track upload progress, if needed
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload progress: " + progress + "%");
+        alert("Upload progress: " + progress + "%");
+        alert(test);
       },
       (error) => {
         // Handle upload error
-        console.error("Upload failed:", error);
+        alert("Upload failed:", error);
       },
       () => {
         // Upload successful
-        console.log("Upload completed");
+        alert("Upload completed");
 
         // Access the download URL of the uploaded file
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
@@ -84,13 +90,43 @@ function App() {
     );
   }
 
+  const [fileNames, setFileNames] = useState([]);
+
+  useEffect(() => {
+    const storageRef = firebase.storage().ref();
+
+    storageRef
+      .listAll()
+      .then((res) => {
+        const names = res.items.map((item) => item.name);
+        setFileNames(names);
+      })
+      .catch((error) => {
+        console.error('Error retrieving file names:', error);
+      });
+  }, []);
+
+  function search(){
+
+  }
+
   return (
-    <div style={styles.container}>
+    <div style={styles.container}> 
+      <div style={styles.container2}>
       <h1 style={styles.header}>Resume Parser</h1>
       <input type='file' id='fileUpload' />
       <div>
         <button style={styles.button1} onClick={uploadFile}>Upload Resume</button> 
         <button style={styles.button1}>Filter Resume</button> 
+      </div>
+      <div>
+      <h1 style={styles.header2}>Current Resumes Stored:</h1>
+      <ul>
+        {fileNames.map((name, index) => (
+          <li key={index}>{name}</li>
+        ))}
+      </ul>
+      </div>
       </div> 
     </div>
   );
